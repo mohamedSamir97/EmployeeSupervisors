@@ -1,11 +1,20 @@
-﻿const express = require("express");
+require("dotenv").config();
+const cors = require('cors');
+
+const express = require("express");
 const app = express();
-app.get("/api", (req, res) => {
-  res.json({
-    success: 1,
-    message: "This is rest apis working",
-  });
-});
-app.listen(3000, () => {
-  console.log("Server up and running");
+const userRouter = require("./api/users/user.router");
+
+app.use(express.json());
+//cors origin configuration
+app.use(cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    optionsSuccessStatus: 200,
+  }));
+
+app.use("/api/users", userRouter);
+const port = process.env.APP_PORT || 4000;
+app.listen(port, () => {
+  console.log("server up and running on PORT :", port);
 });

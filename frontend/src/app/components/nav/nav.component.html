@@ -1,0 +1,16 @@
+<header>
+  <nav>
+    <ul class="navigation-menu">
+      <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+      <ng-container *ngIf="authService.currentUser$ | async">
+        <li>
+          <a routerLink="/employees" routerLinkActive="active">Employees</a>
+        </li>
+        <li>
+          <a routerLink="/chainemployees" routerLinkActive="active">Chain Of Employees</a>
+        </li>
+        <li><a routerLink="" (click)="logout()">Logout</a></li>
+      </ng-container>
+    </ul>
+  </nav>
+</header>
