@@ -1,4 +1,5 @@
-<div class="flex justify-content-center align-items-center h-full">
+<ng-container *ngIf="!(authService.currentUser$ | async)" >
+<div class="d-flex justify-content-center align-items-center mt-5 h-full">
 <form [formGroup] ="loginForm"  (ngSubmit)="loginUser()">
     <p-card header="Login" [style]="{ width: '360px' }">
       <div class="field">
@@ -45,3 +46,12 @@
     </p-card>
   </form>
 </div>
+</ng-container>
+
+<ng-container *ngIf="authService.currentUser$ | async">
+  <div class="flex justify-content-center align-items-center h-full">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">You already logged in!</h4>
+    </div>
+  </div>
+</ng-container>

@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent  {
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
     private messageService: MessageService
   ) { }
@@ -33,7 +33,6 @@ export class LoginComponent  {
 
   loginUser() {
     this.authService.login(this.loginForm.value).subscribe({next:(response :any)=>{
-      debugger;
       if(response.success){
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful' });
         this.router.navigateByUrl('/employees');
@@ -44,8 +43,8 @@ export class LoginComponent  {
 
     },
     error:(error):any  =>{
-      console.log(JSON.stringify(error));
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'email or password is wrong' });
+      console.log(error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred' });
 
     }
   })

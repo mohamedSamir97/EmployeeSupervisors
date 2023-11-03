@@ -23,6 +23,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NavComponent } from './components/nav/nav.component';
+import { ChainEmployeesComponent } from './components/chain-employees/chain-employees.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NavComponent } from './components/nav/nav.component';
     HomeComponent,
     NotFoundComponent,
     EmployeesComponent,
-    NavComponent
+    NavComponent,
+    ChainEmployeesComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,7 @@ import { NavComponent } from './components/nav/nav.component';
     ProgressSpinnerModule,
     MessagesModule,
     NgxSpinnerModule,
+
     ],
   providers: [MessageService,
     {provide:HTTP_INTERCEPTORS,useClass:LoadingInterceptor,multi:true},

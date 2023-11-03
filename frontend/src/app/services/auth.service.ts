@@ -11,14 +11,13 @@ import { ApiResponse } from '../models/apiResponse';
 export class AuthService {
   baseUrl = environment.apiUrl;
 
-  private currentUserSource = new ReplaySubject<User | null>(1);
+  public currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) {}
   login(model: any) {
     return this.http.post(this.baseUrl + 'users/login', model).pipe(
       map((response: any) => {
-        debugger;
         if (response.success) {
           const user = response.user;
           if (user) {
@@ -38,5 +37,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+
   }
 }

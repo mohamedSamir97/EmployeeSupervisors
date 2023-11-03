@@ -19,7 +19,6 @@ export class JwtInterceptor implements HttpInterceptor {
 
   this.authService.currentUser$.pipe(take(1)).subscribe((user) => {
     currentUser = user;
-    debugger;
     if (currentUser) {
       request = request.clone({
         setHeaders: {
