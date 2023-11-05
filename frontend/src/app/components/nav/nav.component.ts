@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
 
   logout(){
     this.authService.logout();
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logged out successful' });
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logged out successful', life : 3000, });
     this.router.navigateByUrl('/');
   }
 

@@ -1,1 +1,125 @@
-<p>employees works!</p>
+
+<p-toast></p-toast>
+<p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+    </ng-template>
+</p-toolbar>
+
+<p-table
+    #dt
+    [value]="employees"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'supervisor']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedEmployee"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+>
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Manage Employees</h5>
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text"  #search (input)="dt.filterGlobal(search.value, 'contains')" placeholder="Search..." />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="supervisor" style="min-width:15rem">Supervisor <p-sortIcon field="supervisor"></p-sortIcon></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-employee>
+        <tr>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.supervisor }}</td>
+            <td class="text-right">
+                <button pButton pRipple icon="pi pi-user-plus" label="Assign supervisor" *ngIf="employee.supervisor_id != '0'" (click)="showAssignDialog(employee)" class="p-button-help mr-2"></button>
+            </td>
+            <td>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEmployee(employee)"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">In total there are {{ employees ? employees.length : 0 }} employees.</div>
+    </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="employeeDialog" [style]="{ width: '450px' }" header="Employee Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="employee.name" required autofocus (blur)="onNameBlur()" />
+            <small [class]="!nameExists ? 'text-success' : 'text-danger'" >{{this.nameBoxMsg}}</small>
+            <br>
+            <small class="p-error" *ngIf="submitted && !employee.name">Name is required.</small>
+        </div>
+        <div class="field">
+            <p-checkbox name="isSeniorSupervisor" [binary]="true"  [(ngModel)]="employee.isSeniorSupervisor" inputId="isSeniorSupervisor"></p-checkbox>
+            <label class="mb-0 ml-1" for="isSeniorSupervisor">Set Senior Supervisor</label>
+            <br>
+            <small class=" text-warning" >Note if checked and there is Senior Supervisor he will no longer be a senior supervisor</small>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" [disabled]="isNameEmpty()" (click)="saveEmployee()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="assignSupervisorDialog" [style]="{ width: '450px', height: '80%' }" header="Assign Supervisor" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+
+            <div class="flex justify-content-between">
+                <div>
+                    <p >Employee</p>
+                </div>
+                <div>
+                    <p>Supervisor</p>
+                </div>
+            </div>
+            <div class="flex justify-content-between">
+                <div>
+                    <p class="text-primary">{{employee.name}}</p>
+                </div>
+                <div>
+                    <p-dropdown [options]="supervisors" [(ngModel)]="selectedSupervisor" optionLabel="name" [filter]="true" filterBy="name" [showClear]="false" placeholder="Select a Supervisor">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="selectedSupervisor">
+                                <div>{{ selectedSupervisor.name }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-supervisor pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ supervisor.name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+            </div>
+
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"  (click)="assignSupervisor(employee.id,selectedSupervisor.id)"></button>
+    </ng-template>
+</p-dialog>
+
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

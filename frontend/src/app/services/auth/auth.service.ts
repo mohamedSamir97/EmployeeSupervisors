@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/user';
+import { User } from '../../models/user';
 import { HttpClient } from '@angular/common/http';
-import { ApiResponse } from '../models/apiResponse';
 
 @Injectable({
   providedIn: 'root',

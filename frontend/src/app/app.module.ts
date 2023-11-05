@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { MessagesModule } from 'primeng/messages';
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -24,6 +25,11 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NavComponent } from './components/nav/nav.component';
 import { ChainEmployeesComponent } from './components/chain-employees/chain-employees.component';
+import { TreeModule } from 'primeng/tree';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DropdownModule  } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -53,9 +59,16 @@ import { ChainEmployeesComponent } from './components/chain-employees/chain-empl
     ProgressSpinnerModule,
     MessagesModule,
     NgxSpinnerModule,
+    TreeModule,
+    ToolbarModule,
+    DialogModule,
+    ConfirmDialogModule,
+    DropdownModule
 
     ],
-  providers: [MessageService,
+  providers: [
+    MessageService,
+    ConfirmationService,
     {provide:HTTP_INTERCEPTORS,useClass:LoadingInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true},
 

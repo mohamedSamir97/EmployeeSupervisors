@@ -7,10 +7,9 @@ module.exports = {
       token = token.slice(7);
       jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
         if (err) {
-          console.error(err);
           return res.status(401).json({
             success: 0,
-            message: "Unauthorized: Invalid or expired token",
+            message: "Unauthorized: Invalid or expired token.. please login again",
           });
         } else {
           req.decoded = decoded;

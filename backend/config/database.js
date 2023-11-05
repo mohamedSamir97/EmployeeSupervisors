@@ -1,4 +1,3 @@
-//require("dotenv").config();
 const { createPool } = require("mysql");
 
 const pool = createPool({
@@ -11,11 +10,3 @@ const pool = createPool({
 });
 
 module.exports = pool;
-
-// APP_PORT=3000
-// DB_PORT=3306
-// DB_HOST=localhost
-// DB_USER=root
-// DB_PASS=7LYnx7j&yYNuV@w
-// MYSQL_DB=employeedb
-// JWT_KEY=Aa@JWT123#

@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { ApiResponse } from 'src/app/models/apiResponse';
 import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -34,37 +33,21 @@ export class LoginComponent  {
   loginUser() {
     this.authService.login(this.loginForm.value).subscribe({next:(response :any)=>{
       if(response.success){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful',life : 3000, });
         this.router.navigateByUrl('/employees');
       }
       else{
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'email or password is wrong' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'email or password is wrong',life : 3000, });
       }
 
     },
     error:(error):any  =>{
       console.log(error);
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred, check the internet connection', life : 3000, });
 
     }
   })
 
-    // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'email or password is wrong' });
-
-    // this.authService.getUserByEmail(email as string).subscribe(
-    //   response => {
-    //     if (response.length > 0 && response[0].password === password) {
-    //       sessionStorage.setItem('email', email as string);
-    //       this.router.navigate(['/home']);
-    //     } else {
-    //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'email or password is wrong' });
-    //     }
-    //   },
-    //   error => {
-    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong' });
-    //   }
-
-    // )
   }
 
 

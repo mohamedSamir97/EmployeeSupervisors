@@ -1,0 +1,10 @@
+@media (max-width: 575.98px) {
+    .flex {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .flex > div {
+      width: 50%;
+    }
+  }

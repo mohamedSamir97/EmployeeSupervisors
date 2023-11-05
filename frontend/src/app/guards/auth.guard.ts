@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, map } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
@@ -28,7 +28,8 @@ export class AuthGuard implements CanActivate {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Not authorized',
+            detail: 'Not authorized, Please login',
+            life : 3000,
           });
           this.router.navigate(['/login']);
           return false;

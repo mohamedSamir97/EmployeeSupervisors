@@ -84,7 +84,7 @@ module.exports = {
       if (result) {
         results.password = undefined;
         const jsontoken = sign({ result: results }, process.env.JWT_KEY, {
-          expiresIn: "1h",
+          expiresIn: "24h",
         });
 
         return res.json({
