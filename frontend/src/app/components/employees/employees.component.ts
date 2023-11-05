@@ -325,7 +325,6 @@ export class EmployeesComponent implements OnInit {
 
   findPotentialSupervisors(employees: any[], empId: string) {
     const potentialSupervisors = employees.filter((employee) => {
-      debugger;
       if (employee.id === empId) {
         return false; // Employee cannot supervise themselves
       }
