@@ -7,9 +7,9 @@ Employee Supervisors App is a full-stack web application built with Angular for 
 Before running the app locally, make sure you have the following prerequisites installed on your system:
 
 1. **Clone the Project:** Clone this project from the GitHub repository.
-```sh
-git clone https://github.com/mohamedSamir97/EmployeeSupervisors.git
-```
+   ```sh
+   git clone https://github.com/mohamedSamir97/EmployeeSupervisors.git
+   ```
 
 2. **Node.js:** Install Node.js from [here](https://nodejs.org/).
 
