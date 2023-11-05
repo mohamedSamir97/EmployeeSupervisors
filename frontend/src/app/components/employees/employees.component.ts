@@ -323,39 +323,31 @@ export class EmployeesComponent implements OnInit {
     return this.employee.name?.trim() === '' || this.employee.name === undefined || this.employee.name === null || this.nameExists;
   }
 
-  findPotentialSupervisors(employees: any[], empId: string) {
-    const potentialSupervisors = employees.filter((employee) => {
-      if (employee.id === empId) {
-        return false; // Employee cannot supervise themselves
+  findPotentialSupervisors(employees: Employee[], empId: string) {
+    let notAllowedSupervisors : Employee[] = [];
+    //get all emp and subordinates where emp.supervisor_id  = empId
+    for(let i = 0 ; i < employees.length ;i++ ){
+      let emp = employees[i];
+
+      if(emp.supervisor_id == empId){
+        notAllowedSupervisors.push(emp);
+        getSubordinates([...employees],emp.id);
       }
-
-      if (employee.supervisor_id === null) {
-        return true; // Has no supervisor
-      }
-
-      if (employee.supervisor_id === 0) {
-        return true; // Senior supervisor
-      }
-
-      let isSupervisor = false;
-      let currentEmployee = employee;
-
-      while (!currentEmployee && currentEmployee.supervisor_id != null) {
-        if (currentEmployee.supervisor_id == empId) {
-          isSupervisor = true;
-          break;
+    }
+    function getSubordinates(employees: Employee[], EmployeeId :string){
+      employees.forEach((element,index ) => {
+        if(element.supervisor_id == EmployeeId){
+          notAllowedSupervisors.push(element);
+          getSubordinates(employees.splice(index,1), element.id);
         }
+      });
+    }
 
-      if (currentEmployee.supervisor_id == '0') {
-        break;
-      }
-
-        currentEmployee = employees.find((e) => e.id === currentEmployee.supervisor_id);
-      }
-
-      return !isSupervisor;
+    const employeesNotInNotAllowedSupervisors = employees.filter((employee) => {
+      return !notAllowedSupervisors.includes(employee);
     });
 
-    return potentialSupervisors;
+
+    return employeesNotInNotAllowedSupervisors;
   }
 }

@@ -314,8 +314,9 @@ module.exports = {
     return new Promise((resolve, reject) => {
       pool.query(
         `SELECT id, name,supervisor_id FROM employees
-         WHERE id != ? AND ( supervisor_id != ? OR supervisor_id IS null)`,
-        [emp_Id, emp_Id],
+         WHERE id != ? `,
+         //AND ( supervisor_id != ? OR supervisor_id IS null)
+        [emp_Id],
         (error, results) => {
           if (error) {
             reject(error);
