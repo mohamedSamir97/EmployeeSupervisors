@@ -56,9 +56,9 @@ Before running the app locally, make sure you have the following prerequisites i
 
 10. **Run Frontend Angular App:** In the terminal, navigate to the `frontend` folder and run the following command to start the Angular app and open it in your default web browser:
 
-   ```sh
-   ng serve --open
-   ```
+    ```sh
+    ng serve --open
+    ```
 
     The frontend app will open in your browser at `http://localhost:4200/` by default.
 
@@ -66,23 +66,23 @@ Before running the app locally, make sure you have the following prerequisites i
     - In the `backend` folder, open the `app.js` file.
     - Change the `origin` in the CORS middleware to the URL where your frontend app is hosted. By default, it is set to `http://localhost:4200`.
 
-   ```javascript
-   app.use(cors({
+    ```javascript
+    app.use(cors({
         origin: 'http://localhost:4200', // Change to your frontend app URL
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         optionsSuccessStatus: 200,
-   }));
-   ```
+    }));
+    ```
 12. **Configure Backend apiUrl In Angular**
     - Configure the apiUrl of backend in environments/environment.ts
     - Here is the apiUrl replace with your backend url
 
-   ```javascript
-   export const environment = {
-   production: false,
-   apiUrl:'http://localhost:3000/api/', //your backend url here
-   };
-   ``` 
+    ```javascript
+    export const environment = {
+    production: false,
+    apiUrl:'http://localhost:3000/api/', //your backend url here
+    };
+    ``` 
 13. **Login Credentials:**
     - To log in, use the credentials found in the `dbInit.js` file.
       - Email: admin@test.test
