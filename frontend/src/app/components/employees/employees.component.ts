@@ -325,6 +325,7 @@ export class EmployeesComponent implements OnInit {
 
   findPotentialSupervisors(employees: any[], empId: string) {
     const potentialSupervisors = employees.filter((employee) => {
+      debugger;
       if (employee.id === empId) {
         return false; // Employee cannot supervise themselves
       }
@@ -333,10 +334,14 @@ export class EmployeesComponent implements OnInit {
         return true; // Has no supervisor
       }
 
+      if (employee.supervisor_id === 0) {
+        return true; // Senior supervisor
+      }
+
       let isSupervisor = false;
       let currentEmployee = employee;
 
-      while (currentEmployee.supervisor_id != null) {
+      while (!currentEmployee && currentEmployee.supervisor_id != null) {
         if (currentEmployee.supervisor_id == empId) {
           isSupervisor = true;
           break;
